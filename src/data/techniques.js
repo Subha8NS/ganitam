@@ -34,8 +34,8 @@ export const TECHNIQUES = [
       en: 'For very large numbers, long multiplication is fine too.',
       hi: 'बहुत बड़े अंकों के लिए सामान्य गुणा भी ठीक है।',
     },
-  whyVedic: [
-      { type: 'steps', en: 'Answer in 2 steps, not 4', hi: 'जवाब 2 कदम में, 4 नहीं' },
+    whyVedic: [
+      { type: 'steps', en: 'Fewer steps than column multiply', hi: 'कॉलम गुणा से कम कदम' },
       { type: 'mental', en: 'Do it entirely in your head', hi: 'पूरा दिमाग में करें' },
       { type: 'pattern', en: 'Same trick for 11, 22, 33…', hi: '11, 22, 33… पर एक ही तरीका' },
       { type: 'verify', en: 'Check with digit sum in 1 second', hi: 'अंक जोड़ से 1 सेकंड में जाँच' },
@@ -51,9 +51,11 @@ export const TECHNIQUES = [
     },
     vedic: {
       steps: [
-        { en: 'Split: 4 | 7', hi: 'विभाजित करें: 4 | 7', proTip: { en: 'Keep digits separate — that\'s the secret!', hi: 'अंक अलग रखें — यही राज़ है!' } },
-        { en: 'Middle: 4 + 7 = 11 → write 1, carry 1', hi: 'बीच: 4 + 7 = 11 → 1 लिखें, 1 कैरी', proTip: { en: 'Add the two digits — this replaces two multiplications!', hi: 'दो अंक जोड़ें — यह दो गुणा की जगह लेता है!' } },
-        { en: 'Answer: 5 1 7 → 517', hi: 'जवाब: 5 1 7 → 517', proTip: { en: 'Put carry in front — done in seconds!', hi: 'कैरी आगे रखें — सेकंडों में हो गया!' } },
+        { en: 'Split 47: 4 | 7', hi: '47 विभाजित करें: 4 | 7', proTip: { en: 'Keep the outer digits separate.', hi: 'बाहरी अंक अलग रखें।' } },
+        { en: 'Add middle: 4 + 7 = 11', hi: 'बीच जोड़ें: 4 + 7 = 11', proTip: { en: 'Add the two digits — this is the middle part.', hi: 'दो अंक जोड़ें — यह बीच का भाग है।' } },
+        { en: 'Write 1 in middle, carry 1', hi: 'बीच में 1 लिखें, 1 कैरी करें', proTip: { en: 'When the sum is 11 or more, carry to the left.', hi: 'योग 11 या अधिक हो तो बाएँ कैरी करें।' } },
+        { en: 'Add carry: 4 + 1 = 5', hi: 'कैरी जोड़ें: 4 + 1 = 5', proTip: { en: 'Add the carry to the left digit.', hi: 'कैरी को बाएँ अंक में जोड़ें।' } },
+        { en: 'Answer: 5 | 1 | 7 → 517', hi: 'जवाब: 5 | 1 | 7 → 517', proTip: { en: 'Read left, middle, right — done!', hi: 'बाएँ, बीच, दाएँ पढ़ें — हो गया!' } },
       ],
       pros: ['steps', 'mental', 'speed'],
       timeEstimate: 8,
@@ -62,8 +64,8 @@ export const TECHNIQUES = [
       { q: '23 × 11', a: 253, hint: { en: '2+3=5 in the middle', hi: 'बीच में 2+3=5' } },
       { q: '45 × 11', a: 495, hint: { en: '4+5=9 in the middle', hi: 'बीच में 4+5=9' } },
       { q: '72 × 11', a: 792, hint: { en: '7+2=9 in the middle', hi: 'बीच में 7+2=9' } },
-      { q: '56 × 11', a: 616, hint: { en: '5+6=11, carry 1!', hi: '5+6=11, 1 कैरी!' } },
-      { q: '38 × 11', a: 418, hint: { en: '3+8=11, carry 1!', hi: '3+8=11, 1 कैरी!' } },
+      { q: '56 × 11', a: 616, hint: { en: '5+6=11, write 1, carry 1 → 616', hi: '5+6=11, 1 लिखें, 1 कैरी → 616' } },
+      { q: '38 × 11', a: 418, hint: { en: '3+8=11, write 1, carry 1 → 418', hi: '3+8=11, 1 लिखें, 1 कैरी → 418' } },
     ],
     masteredText: { en: 'You can now multiply by 11 in your head!', hi: 'अब आप 11 से गुणा दिमाग में कर सकते हैं!' },
   },
@@ -134,7 +136,7 @@ export const TECHNIQUES = [
       hi: 'केवल 5 पर समाप्त संख्याओं पर काम करता है।',
     },
     whyVedic: [
-      { type: 'speed', en: 'Answer in 2 quick steps', hi: '2 त्वरित कदमों में जवाब' },
+      { type: 'speed', en: 'Answer in 4 quick steps', hi: '4 त्वरित कदमों में जवाब' },
       { type: 'mental', en: 'No multiplication tables needed', hi: 'गुणा तालिका की जरूरत नहीं' },
       { type: 'pattern', en: 'Same rule for any …5 number', hi: 'किसी भी …5 संख्या पर एक नियम' },
       { type: 'confidence', en: 'Looks like magic to friends!', hi: 'दोस्तों को जादू जैसा लगेगा!' },
@@ -150,12 +152,13 @@ export const TECHNIQUES = [
     },
     vedic: {
       steps: [
-        { en: 'Take 3 (digits before 5)', hi: '3 लें (5 से पहले का अंक)', proTip: { en: 'Ignore the 5 for now — focus on the rest!', hi: 'अभी 5 को छोड़ें — बाकी पर ध्यान दें!' } },
-        { en: 'Next number: 3+1 = 4', hi: 'अगली संख्या: 3+1 = 4', proTip: { en: 'Multiply these two: 3 × 4 = 12', hi: 'इन्हें गुणा करें: 3 × 4 = 12' } },
-        { en: 'Append 25 → 1225', hi: '25 जोड़ें → 1225', proTip: { en: 'Always end with 25 — that\'s the rule!', hi: 'हमेशा 25 से समाप्त — यही नियम है!' } },
+        { en: 'Take 3 (digit before 5 in 35)', hi: '3 लें (35 में 5 से पहले का अंक)', proTip: { en: 'Ignore the 5 for now — focus on the digit before it!', hi: 'अभी 5 को छोड़ें — उससे पहले के अंक पर ध्यान दें!' } },
+        { en: 'Next number: 3 + 1 = 4', hi: 'अगली संख्या: 3 + 1 = 4', proTip: { en: 'Always add 1 to the first digit.', hi: 'पहले अंक में हमेशा 1 जोड़ें।' } },
+        { en: 'Multiply: 3 × 4 = 12', hi: 'गुणा करें: 3 × 4 = 12', proTip: { en: 'Multiply the two numbers from steps 1 and 2.', hi: 'कदम 1 और 2 की दोनों संख्याओं को गुणा करें।' } },
+        { en: 'Append 25 → 1225', hi: '25 जोड़ें → 1225', proTip: { en: 'Squares ending in 5 always end with 25!', hi: '5 पर समाप्त वर्ग हमेशा 25 से समाप्त होते हैं!' } },
       ],
       pros: ['speed', 'mental', 'pattern'],
-      timeEstimate: 7,
+      timeEstimate: 8,
     },
     practice: [
       { q: '25²', a: 625, hint: { en: '2×3=6, append 25', hi: '2×3=6, 25 जोड़ें' } },
@@ -200,20 +203,20 @@ export const TECHNIQUES = [
     },
     vedic: {
       steps: [
-        { en: 'Both below 100: -2 and -3', hi: 'दोनों 100 से कम: -2 और -3', proTip: { en: 'Find how far each number is from 100', hi: 'प्रत्येक अंक 100 से कितना दूर है पता करें' } },
-        { en: 'Cross: 98 - 3 = 95 (or 97 - 2)', hi: 'क्रॉस: 98 - 3 = 95 (या 97 - 2)', proTip: { en: 'Subtract the other\'s difference!', hi: 'दूसरे का अंतर घटाएँ!' } },
-        { en: 'Multiply differences: (-2)×(-3) = 06', hi: 'अंतर गुणा: (-2)×(-3) = 06', proTip: { en: 'Negative × negative = positive — append to 95', hi: 'ऋण × ऋण = धनात्मक — 95 के साथ जोड़ें' } },
-        { en: 'Answer: 9506', hi: 'जवाब: 9506', proTip: { en: '95 and 06 combine — done!', hi: '95 और 06 मिलाएँ — हो गया!' } },
+        { en: 'Find gaps from 100: 98 → -2, 97 → -3', hi: '100 से अंतर: 98 → -2, 97 → -3', proTip: { en: 'How far is each number from 100?', hi: 'प्रत्येक अंक 100 से कितना दूर है?' } },
+        { en: 'Cross subtract: 98 - 3 = 95', hi: 'क्रॉस घटाव: 98 - 3 = 95', proTip: { en: 'Subtract the other number\'s gap (or 97 - 2 = 95).', hi: 'दूसरे अंक का अंतर घटाएँ (या 97 - 2 = 95)।' } },
+        { en: 'Multiply gaps: (-2) × (-3) = 6', hi: 'अंतर गुणा: (-2) × (-3) = 6', proTip: { en: 'Negative × negative = positive. Write as 06.', hi: 'ऋण × ऋण = धनात्मक। 06 लिखें।' } },
+        { en: 'Join parts: 95 and 06 → 9506', hi: 'भाग जोड़ें: 95 और 06 → 9506', proTip: { en: 'Put the cross result and product side by side.', hi: 'क्रॉस परिणाम और गुणनफल साथ रखें।' } },
       ],
       pros: ['speed', 'mental', 'exam'],
       timeEstimate: 12,
     },
     practice: [
-      { q: '99 × 98', a: 9702, hint: { en: '-1 and -2, cross subtract', hi: '-1 और -2, क्रॉस घटाव' } },
-      { q: '95 × 96', a: 9120, hint: { en: '-5 and -4', hi: '-5 और -4' } },
-      { q: '97 × 93', a: 9021, hint: { en: '-3 and -7', hi: '-3 और -7' } },
-      { q: '94 × 99', a: 9306, hint: { en: '-6 and -1', hi: '-6 और -1' } },
-      { q: '92 × 98', a: 9016, hint: { en: '-8 and -2', hi: '-8 और -2' } },
+      { q: '99 × 98', a: 9702, hint: { en: '-1 & -2, cross subtract, multiply, join', hi: '-1 और -2, क्रॉस घटाव, गुणा, जोड़ें' } },
+      { q: '95 × 96', a: 9120, hint: { en: '-5 & -4 → 91 and 20 → 9120', hi: '-5 और -4 → 91 और 20 → 9120' } },
+      { q: '97 × 93', a: 9021, hint: { en: '-3 & -7 → 90 and 21 → 9021', hi: '-3 और -7 → 90 और 21 → 9021' } },
+      { q: '94 × 99', a: 9306, hint: { en: '-6 & -1 → 93 and 06 → 9306', hi: '-6 और -1 → 93 और 06 → 9306' } },
+      { q: '92 × 98', a: 9016, hint: { en: '-8 & -2 → 90 and 16 → 9016', hi: '-8 और -2 → 90 और 16 → 9016' } },
     ],
     masteredText: { en: 'You can multiply big numbers near 100 easily!', hi: 'अब आप 100 के पास बड़े अंक आसानी से गुणा कर सकते हैं!' },
   },
@@ -251,9 +254,9 @@ export const TECHNIQUES = [
     },
     vedic: {
       steps: [
-        { en: 'Add digits: 4+5+3+6 = 18', hi: 'अंक जोड़ें: 4+5+3+6 = 18', proTip: { en: 'Add all digits of the number', hi: 'संख्या के सभी अंक जोड़ें' } },
-        { en: '18 is divisible by 9 ✓', hi: '18, 9 से भाज्य है ✓', proTip: { en: 'If digit-sum is divisible by 9, so is the number!', hi: 'अंक-योग 9 से भाज्य हो तो संख्या भी!' } },
-        { en: 'Yes! 4,536 ÷ 9 = 504', hi: 'हाँ! 4,536 ÷ 9 = 504', proTip: { en: 'Use this to verify your answer fast', hi: 'जवाब जल्दी जाँचने के लिए उपयोग करें' } },
+        { en: 'Add all digits: 4 + 5 + 3 + 6 = 18', hi: 'सभी अंक जोड़ें: 4 + 5 + 3 + 6 = 18', proTip: { en: 'Add every digit of the number.', hi: 'संख्या का हर अंक जोड़ें।' } },
+        { en: 'Check digit sum: 18 ÷ 9 = 2 ✓', hi: 'अंक-योग जाँचें: 18 ÷ 9 = 2 ✓', proTip: { en: 'If the sum divides by 9, the number does too. (If sum > 9, add digits again: 1+8=9)', hi: 'योग 9 से भाज्य हो तो संख्या भी। (योग > 9 हो तो फिर जोड़ें: 1+8=9)' } },
+        { en: 'Yes — 4,536 is divisible by 9', hi: 'हाँ — 4,536, 9 से भाज्य है', proTip: { en: 'Use this to verify answers without full division.', hi: 'पूरा भाग किए बिना जवाब जाँचने के लिए उपयोग करें।' } },
       ],
       pros: ['verify', 'speed', 'exam'],
       timeEstimate: 4,
@@ -301,8 +304,9 @@ export const TECHNIQUES = [
     },
     vedic: {
       steps: [
-        { en: 'Find complement: 38 → needs 2 to make 40', hi: 'पूरक खोजें: 38 → 40 बनाने को 2 चाहिए', proTip: { en: 'Round up to the nearest easy number', hi: 'निकटतम आसान संख्या पर पूर्णांक करें' } },
-        { en: '47 - 2 = 45, then 45 + 40 = 85', hi: '47 - 2 = 45, फिर 45 + 40 = 85', proTip: { en: 'Take from one, add round number to other!', hi: 'एक से लें, दूसरे में पूर्ण संख्या जोड़ें!' } },
+        { en: 'Round 38 up to 40 (add 2)', hi: '38 को 40 पर पूर्णांक करें (+2)', proTip: { en: 'Find the next easy round number.', hi: 'अगली आसान पूर्ण संख्या खोजें।' } },
+        { en: 'Balance: take 2 from 47 → 45', hi: 'संतुलन: 47 से 2 लें → 45', proTip: { en: 'Subtract the same amount from the other number.', hi: 'दूसरी संख्या से उतना ही घटाएँ।' } },
+        { en: 'Add the round number: 45 + 40 = 85', hi: 'पूर्ण संख्या जोड़ें: 45 + 40 = 85', proTip: { en: 'Now the addition is easy!', hi: 'अब जोड़ आसान है!' } },
       ],
       pros: ['mental', 'speed', 'confidence'],
       timeEstimate: 6,
