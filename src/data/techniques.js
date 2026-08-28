@@ -320,6 +320,157 @@ export const TECHNIQUES = [
     ],
     masteredText: { en: 'You add numbers smarter using complements!', hi: 'अब आप पूरक से होशियारी से जोड़ते हैं!' },
   },
+  {
+    id: 'percent-10',
+    category: 'percent',
+    difficulty: 1,
+    icon: '10%',
+    en: 'Find 10% fast',
+    hi: '10% जल्दी निकालें',
+    benefitChip: { en: 'Move the dot', hi: 'बिंदु हिलाएँ' },
+    duration: '3 min',
+    whenToUse: {
+      en: 'Best for: discounts, tips, marks, quick estimates',
+      hi: 'सबसे अच्छा: छूट, टिप, अंक, जल्दी अनुमान',
+    },
+    whenNotToUse: {
+      en: 'Weird percentages like 13% need the build-from-10% trick.',
+      hi: '13% जैसे अजीब प्रतिशत के लिए 10% से बनाने की विधि लगेगी।',
+    },
+    whyVedic: [
+      { type: 'speed', en: '10% = divide by 10 in one move', hi: '10% = एक ही कदम में 10 से भाग' },
+      { type: 'mental', en: 'Just shift the decimal point left', hi: 'बस दशमलव बिंदु बाएँ खिसकाएँ' },
+      { type: 'pattern', en: 'Foundation for 5%, 15%, 20%…', hi: '5%, 15%, 20%… की नींव' },
+      { type: 'exam', en: 'Super common in word problems', hi: 'शब्दों वाले सवालों में बहुत आम' },
+    ],
+    regular: {
+      steps: [
+        { en: '10% of 240 — set up proportion', hi: '240 का 10% — अनुपात बनाएँ' },
+        { en: '10/100 × 240', hi: '10/100 × 240' },
+        { en: 'Simplify: 240 ÷ 10', hi: 'सरल करें: 240 ÷ 10' },
+        { en: 'Answer: 24', hi: 'जवाब: 24' },
+      ],
+      timeEstimate: 20,
+    },
+    vedic: {
+      steps: [
+        { en: '10% means 1 out of every 10', hi: '10% का मतलब हर 10 में से 1', proTip: { en: '10% is always one-tenth of the number.', hi: '10% हमेशा संख्या का एक-दसवाँ होता है।' } },
+        { en: 'Divide by 10: 240 ÷ 10 = 24', hi: '10 से भाग: 240 ÷ 10 = 24', proTip: { en: 'Or move the decimal one place left: 240. → 24.0', hi: 'या दशमलव एक स्थान बाएँ: 240. → 24.0' } },
+        { en: 'Answer: 10% of 240 = 24', hi: 'जवाब: 240 का 10% = 24', proTip: { en: 'Use this as the base for 5%, 15%, 20% and more!', hi: 'इसे 5%, 15%, 20% और अधिक के आधार के रूप में उपयोग करें!' } },
+      ],
+      pros: ['speed', 'mental', 'pattern'],
+      timeEstimate: 5,
+    },
+    practice: [
+      { q: '10% of 80', a: 8, hint: { en: '80 ÷ 10 = 8', hi: '80 ÷ 10 = 8' } },
+      { q: '10% of 350', a: 35, hint: { en: '350 ÷ 10 = 35', hi: '350 ÷ 10 = 35' } },
+      { q: '10% of 120', a: 12, hint: { en: '120 ÷ 10 = 12', hi: '120 ÷ 10 = 12' } },
+      { q: '10% of 500', a: 50, hint: { en: '500 ÷ 10 = 50', hi: '500 ÷ 10 = 50' } },
+      { q: '10% of 90', a: 9, hint: { en: '90 ÷ 10 = 9', hi: '90 ÷ 10 = 9' } },
+    ],
+    masteredText: { en: 'You can find 10% of anything in a second!', hi: 'अब आप किसी भी संख्या का 10% एक सेकंड में निकाल सकते हैं!' },
+  },
+  {
+    id: 'percent-25',
+    category: 'percent',
+    difficulty: 1,
+    icon: '25%',
+    en: 'Find 25% fast',
+    hi: '25% जल्दी निकालें',
+    benefitChip: { en: 'Just ÷ 4', hi: 'बस ÷ 4' },
+    duration: '3 min',
+    whenToUse: {
+      en: 'Best for: quarter-off sales, 25% marks, splitting in 4',
+      hi: 'सबसे अच्छा: चौथाई छूट, 25% अंक, 4 में बाँटना',
+    },
+    whenNotToUse: {
+      en: 'For 33% or other fractions, use a different shortcut.',
+      hi: '33% या अन्य भिन्न के लिए दूसरा शॉर्टकट उपयोग करें।',
+    },
+    whyVedic: [
+      { type: 'speed', en: '25% = divide by 4 instantly', hi: '25% = तुरंत 4 से भाग' },
+      { type: 'mental', en: '25% is the same as one quarter', hi: '25% = एक चौथाई के बराबर' },
+      { type: 'pattern', en: 'Works for 25, 250, 2500…', hi: '25, 250, 2500… पर काम करता है' },
+      { type: 'exam', en: 'Quarter fractions appear everywhere', hi: 'चौथाई भिन्न हर जगह आते हैं' },
+    ],
+    regular: {
+      steps: [
+        { en: '25% of 80 — set up proportion', hi: '80 का 25% — अनुपात बनाएँ' },
+        { en: '25/100 × 80 = 1/4 × 80', hi: '25/100 × 80 = 1/4 × 80' },
+        { en: '80 ÷ 4 = 20', hi: '80 ÷ 4 = 20' },
+        { en: 'Answer: 20', hi: 'जवाब: 20' },
+      ],
+      timeEstimate: 18,
+    },
+    vedic: {
+      steps: [
+        { en: '25% = 1/4 (one quarter)', hi: '25% = 1/4 (एक चौथाई)', proTip: { en: 'Think “quarter” — 25¢ is a quarter of ₹1', hi: '“चौथाई” सोचें — 25 पैसे = ₹1 का चौथाई' } },
+        { en: 'Divide by 4: 80 ÷ 4 = 20', hi: '4 से भाग: 80 ÷ 4 = 20', proTip: { en: 'Half of half also works: 80→40→20', hi: 'आधा-आधा भी चलेगा: 80→40→20' } },
+        { en: 'Answer: 25% of 80 = 20', hi: 'जवाब: 80 का 25% = 20', proTip: { en: 'Same trick as ×25 — divide by 4 first!', hi: '×25 जैसा ही — पहले 4 से भाग!' } },
+      ],
+      pros: ['speed', 'mental', 'pattern'],
+      timeEstimate: 6,
+    },
+    practice: [
+      { q: '25% of 60', a: 15, hint: { en: '60 ÷ 4 = 15', hi: '60 ÷ 4 = 15' } },
+      { q: '25% of 200', a: 50, hint: { en: '200 ÷ 4 = 50', hi: '200 ÷ 4 = 50' } },
+      { q: '25% of 48', a: 12, hint: { en: '48 ÷ 4 = 12', hi: '48 ÷ 4 = 12' } },
+      { q: '25% of 100', a: 25, hint: { en: '100 ÷ 4 = 25', hi: '100 ÷ 4 = 25' } },
+      { q: '25% of 36', a: 9, hint: { en: '36 ÷ 4 = 9', hi: '36 ÷ 4 = 9' } },
+    ],
+    masteredText: { en: 'You can find 25% by dividing by 4!', hi: 'अब आप 25% चार से भाग करके निकाल सकते हैं!' },
+  },
+  {
+    id: 'percent-build',
+    category: 'percent',
+    difficulty: 2,
+    icon: '15%',
+    en: 'Build % from 10%',
+    hi: '10% से % बनाएँ',
+    benefitChip: { en: 'Mix & match', hi: 'मिलाएँ और बनाएँ' },
+    duration: '4 min',
+    whenToUse: {
+      en: 'Best for: 5%, 15%, 20%, 30% — any % built from 10%',
+      hi: 'सबसे अच्छा: 5%, 15%, 20%, 30% — 10% से बनने वाले सभी %',
+    },
+    whenNotToUse: {
+      en: 'For 10% or 25%, use the direct shortcuts instead.',
+      hi: '10% या 25% के लिए सीधे शॉर्टकट उपयोग करें।',
+    },
+    whyVedic: [
+      { type: 'pattern', en: '5% = half of 10%, 20% = double 10%', hi: '5% = 10% का आधा, 20% = 10% का दोगुना' },
+      { type: 'mental', en: 'Break any % into easy pieces', hi: 'किसी भी % को आसान टुकड़ों में तोड़ें' },
+      { type: 'speed', en: 'Faster than setting up fractions', hi: 'भिन्न बनाने से तेज़' },
+      { type: 'exam', en: 'Handles 15%, 35%, 45% in exams', hi: 'परीक्षा में 15%, 35%, 45% हल करता है' },
+    ],
+    regular: {
+      steps: [
+        { en: '15% of 200 — set up 15/100 × 200', hi: '200 का 15% — 15/100 × 200 बनाएँ' },
+        { en: 'Simplify: 15 × 200 ÷ 100', hi: 'सरल करें: 15 × 200 ÷ 100' },
+        { en: 'Calculate: 3000 ÷ 100 = 30', hi: 'गणना: 3000 ÷ 100 = 30' },
+        { en: 'Answer: 30', hi: 'जवाब: 30' },
+      ],
+      timeEstimate: 25,
+    },
+    vedic: {
+      steps: [
+        { en: 'Split 15% = 10% + 5%', hi: '15% = 10% + 5% में तोड़ें', proTip: { en: 'Break the % into 10% chunks you know!', hi: '% को ज्ञात 10% के टुकड़ों में तोड़ें!' } },
+        { en: 'Find 10% of 200: 200 ÷ 10 = 20', hi: '200 का 10%: 200 ÷ 10 = 20', proTip: { en: 'Always find 10% first — it\'s the building block.', hi: 'हमेशा पहले 10% निकालें — यह नींव है।' } },
+        { en: 'Find 5%: half of 20 = 10', hi: '5%: 20 का आधा = 10', proTip: { en: '5% is always half of 10%.', hi: '5% हमेशा 10% का आधा होता है।' } },
+        { en: 'Add: 20 + 10 = 30', hi: 'जोड़ें: 20 + 10 = 30', proTip: { en: '20% would be 20+20=40. Easy!', hi: '20% होगा 20+20=40। आसान!' } },
+      ],
+      pros: ['pattern', 'mental', 'exam'],
+      timeEstimate: 10,
+    },
+    practice: [
+      { q: '15% of 200', a: 30, hint: { en: '10%=20, 5%=10, add=30', hi: '10%=20, 5%=10, जोड़=30' } },
+      { q: '20% of 150', a: 30, hint: { en: '10%=15, double=30', hi: '10%=15, दोगुना=30' } },
+      { q: '5% of 80', a: 4, hint: { en: '10%=8, half=4', hi: '10%=8, आधा=4' } },
+      { q: '30% of 100', a: 30, hint: { en: '10%=10, triple=30', hi: '10%=10, तिगुना=30' } },
+      { q: '15% of 60', a: 9, hint: { en: '10%=6, 5%=3, add=9', hi: '10%=6, 5%=3, जोड़=9' } },
+    ],
+    masteredText: { en: 'You can build any % from 10% pieces!', hi: 'अब आप 10% के टुकड़ों से कोई भी % बना सकते हैं!' },
+  },
 ];
 
 export const DAILY_CHALLENGE = {
