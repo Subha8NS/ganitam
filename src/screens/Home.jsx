@@ -18,10 +18,16 @@ export default function Home() {
           </div>
           <motion.div
             className="streak-badge"
-            animate={{ scale: [1, 1.05, 1] }}
-            transition={{ duration: 2, repeat: Infinity }}
+            animate={{ scale: [1, 1.08, 1], y: [0, -2, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
           >
-            <span className="fire">🔥</span>
+            <motion.span
+              className="fire"
+              animate={{ scale: [1, 1.25, 1], rotate: [0, 5, -5, 0] }}
+              transition={{ duration: 0.8, repeat: Infinity }}
+            >
+              🔥
+            </motion.span>
             {progress.streak} {lang === 'hi' ? 'दिन' : 'day streak'}
           </motion.div>
         </div>

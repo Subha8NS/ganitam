@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useApp } from '../context/AppContext';
-import { HeaderBar } from '../components/ui';
+import { HeaderBar, CorrectCelebration, SparkleBurst } from '../components/ui';
 
 export default function Practice() {
   const {
@@ -19,6 +19,7 @@ export default function Practice() {
   const [hintLevel, setHintLevel] = useState(0);
   const [feedback, setFeedback] = useState(null);
   const [yesNo, setYesNo] = useState(null);
+  const [sparkle, setSparkle] = useState(false);
 
   if (!tech || !practiceState) return null;
 
@@ -43,6 +44,8 @@ export default function Practice() {
 
     if (correct) {
       setFeedback('correct');
+      setSparkle(true);
+      setTimeout(() => setSparkle(false), 800);
     } else {
       setFeedback('wrong');
     }
@@ -88,6 +91,7 @@ export default function Practice() {
         <motion.div
           className="progress-bar-fill"
           animate={{ width: `${progress}%` }}
+          transition={{ type: 'spring', stiffness: 120, damping: 20 }}
         />
       </div>
 
@@ -98,13 +102,25 @@ export default function Practice() {
       <AnimatePresence mode="wait">
         <motion.div
           key={practiceState.index}
-          initial={{ opacity: 0, scale: 0.9, rotateX: 10 }}
-          animate={{ opacity: 1, scale: 1, rotateX: 0 }}
-          exit={{ opacity: 0, scale: 0.9 }}
+          initial={{ opacity: 0, scale: 0.85, rotateX: 15, y: 20 }}
+          animate={
+            feedback === 'wrong'
+              ? { opacity: 1, scale: 1, rotateX: 0, y: 0, x: [0, -8, 8, -6, 6, 0] }
+              : { opacity: 1, scale: 1, rotateX: 0, y: 0, x: 0 }
+          }
+          exit={{ opacity: 0, scale: 0.85, y: -20 }}
           transition={{ type: 'spring', stiffness: 200 }}
           className="practice-question glass-3d"
+          style={{ position: 'relative' }}
         >
-          <div className="question-text">{current.q}</div>
+          <SparkleBurst active={sparkle} />
+          <motion.div
+            className="question-text"
+            animate={feedback === 'correct' ? { scale: [1, 1.08, 1] } : {}}
+            transition={{ duration: 0.4 }}
+          >
+            {current.q}
+          </motion.div>
         </motion.div>
       </AnimatePresence>
 
@@ -118,15 +134,30 @@ export default function Practice() {
         </motion.div>
       )}
 
+      <CorrectCelebration
+        show={feedback === 'correct'}
+        message={lang === 'hi' ? 'शाबाश! 🎉' : 'Great job! 🎉'}
+      />
+
       <AnimatePresence>
-        {feedback === 'correct' && (
-          <motion.div className="feedback-correct" initial={{ scale: 0 }} animate={{ scale: 1 }}>
-            ✓ {lang === 'hi' ? 'शाबाश!' : 'Great job!'}
-          </motion.div>
-        )}
         {feedback === 'wrong' && (
-          <motion.div className="feedback-wrong" initial={{ scale: 0 }} animate={{ scale: 1 }}>
-            {lang === 'hi' ? 'कोशिश जारी रखें!' : 'Keep trying!'} {lang === 'hi' ? 'सही जवाब' : 'Answer'}: {current.isYesNo ? (current.a ? (lang === 'hi' ? 'हाँ' : 'Yes') : (lang === 'hi' ? 'नहीं' : 'No')) : current.a}
+          <motion.div
+            className="feedback-wrong"
+            initial={{ scale: 0, x: -10 }}
+            animate={{ scale: 1, x: 0 }}
+            exit={{ scale: 0.8, opacity: 0 }}
+          >
+            💪 {lang === 'hi' ? 'कोशिश जारी रखें!' : 'Keep trying!'}{' '}
+            {lang === 'hi' ? 'सही जवाब' : 'Answer'}:{' '}
+            {current.isYesNo
+              ? current.a
+                ? lang === 'hi'
+                  ? 'हाँ'
+                  : 'Yes'
+                : lang === 'hi'
+                  ? 'नहीं'
+                  : 'No'
+              : current.a}
           </motion.div>
         )}
       </AnimatePresence>

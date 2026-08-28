@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useApp } from '../context/AppContext';
-import { Confetti, FadeIn } from '../components/ui';
+import { Confetti, FadeIn, TrophyPop } from '../components/ui';
 import { GainedPanel } from '../components/ProDisplay';
 
 export default function Results() {
@@ -18,11 +18,17 @@ export default function Results() {
 
       <FadeIn>
         <div className="results-hero glass-3d">
+          {isMastered && (
+            <TrophyPop
+              show
+              label={lang === 'hi' ? 'तकनीक मास्टर!' : 'Technique mastered!'}
+            />
+          )}
           <motion.div
             className="results-score"
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ type: 'spring', stiffness: 150, damping: 12 }}
+            initial={{ scale: 0, rotate: -10 }}
+            animate={{ scale: 1, rotate: 0 }}
+            transition={{ type: 'spring', stiffness: 150, damping: 10, delay: 0.1 }}
           >
             {results.accuracy}%
           </motion.div>
@@ -31,12 +37,19 @@ export default function Results() {
           </p>
           {isMastered && (
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
+              transition={{ delay: 0.6, type: 'spring' }}
               style={{ marginTop: 12, color: 'var(--success)', fontWeight: 700 }}
             >
-              ★ {tInline(tech.masteredText.en, tech.masteredText.hi)}
+              <motion.span
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ duration: 0.8, repeat: Infinity, repeatDelay: 1 }}
+                style={{ display: 'inline-block', marginRight: 6 }}
+              >
+                ★
+              </motion.span>
+              {tInline(tech.masteredText.en, tech.masteredText.hi)}
             </motion.div>
           )}
         </div>

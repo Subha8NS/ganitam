@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useApp } from '../context/AppContext';
-import { HeaderBar, FadeIn } from '../components/ui';
+import { HeaderBar, FadeIn, SparkleBurst, CorrectCelebration, PulseButton } from '../components/ui';
 
 export default function GuidedPractice() {
   const { selectedTechnique: tech, navigate, startPractice, lang, tInline } = useApp();
@@ -15,7 +15,13 @@ export default function GuidedPractice() {
   const isLast = stepIndex === steps.length - 1;
   const savedSteps = tech.regular.steps.length - steps.length;
 
-  const revealStep = () => setRevealed(true);
+  const [sparkle, setSparkle] = useState(false);
+
+  const revealStep = () => {
+    setRevealed(true);
+    setSparkle(true);
+    setTimeout(() => setSparkle(false), 800);
+  };
 
   const nextStep = () => {
     if (isLast) {
@@ -53,9 +59,16 @@ export default function GuidedPractice() {
           exit={{ opacity: 0, x: -40 }}
           transition={{ duration: 0.4, type: 'spring', stiffness: 200 }}
           className="guided-step glass-3d"
-          style={{ marginTop: 12, paddingTop: 24 }}
+          style={{ marginTop: 12, paddingTop: 24, position: 'relative' }}
         >
-          <div className="step-number">{stepIndex + 1}</div>
+          <SparkleBurst active={sparkle} />
+          <motion.div
+            className="step-number"
+            animate={revealed ? { scale: [1, 1.3, 1], rotate: [0, 360] } : {}}
+            transition={{ duration: 0.6 }}
+          >
+            {stepIndex + 1}
+          </motion.div>
 
           {!revealed ? (
             <motion.div
@@ -66,21 +79,15 @@ export default function GuidedPractice() {
               <p style={{ fontSize: '1rem', color: 'var(--text-muted)', marginBottom: 16 }}>
                 {lang === 'hi' ? 'अगला कदम देखने के लिए टैप करें' : 'Tap to reveal the next step'}
               </p>
-              <motion.button
-                className="btn btn-primary"
-                onClick={revealStep}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                animate={{ boxShadow: ['0 4px 20px rgba(99,102,241,0.3)', '0 8px 32px rgba(99,102,241,0.5)', '0 4px 20px rgba(99,102,241,0.3)'] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              >
+              <PulseButton className="btn btn-primary" onClick={revealStep}>
                 {lang === 'hi' ? 'कदम दिखाएँ' : 'Show step'} ✨
-              </motion.button>
+              </PulseButton>
             </motion.div>
           ) : (
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 20, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 18 }}
             >
               <p style={{ fontSize: '1.1rem', fontWeight: 600, lineHeight: 1.5, marginBottom: 8 }}>
                 {tInline(current.en, current.hi)}
