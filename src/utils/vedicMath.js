@@ -69,10 +69,145 @@ export function verifyProductByDigitalRoot(a, b, product) {
   return left === right;
 }
 
+/** Perfect cube */
+export function cube(n) {
+  return n * n * n;
+}
+
+/** Integer square root if perfect square, else null */
+export function integerSquareRoot(n) {
+  if (n < 0) return null;
+  const r = Math.round(Math.sqrt(n));
+  return r * r === n ? r : null;
+}
+
+/** Divide by 5: n/5 = (n×2)/10 */
+export function divideBy5(n) {
+  return (n * 2) / 10;
+}
+
+/** Divide by 25: n/25 = (n×4)/100 */
+export function divideBy25(n) {
+  return (n * 4) / 100;
+}
+
+/** Divide by 9 using long division result (exact when divisible) */
+export function divideBy9(n) {
+  return n / 9;
+}
+
+/**
+ * Expand (ax+b)(cx+d) = (ac)x² + (ad+bc)x + bd
+ * Urdhva-Tiryag vertically and crosswise
+ */
+export function expandBinomials(a, b, c, d) {
+  return {
+    x2: a * c,
+    x: a * d + b * c,
+    const: b * d,
+  };
+}
+
+/** Format binomial expansion for answers: e.g. "6x^2 - x - 15" */
+export function formatBinomial(a, b, c, d) {
+  const { x2, x, const: k } = expandBinomials(a, b, c, d);
+  const parts = [];
+  if (x2 === 1) parts.push('x^2');
+  else if (x2 === -1) parts.push('-x^2');
+  else parts.push(`${x2}x^2`);
+  if (x === 0) {
+    /* skip */
+  } else if (x === 1) parts.push('+ x');
+  else if (x === -1) parts.push('- x');
+  else if (x > 0) parts.push(`+ ${x}x`);
+  else parts.push(`- ${Math.abs(x)}x`);
+  if (k === 0) {
+    /* skip */
+  } else if (k > 0) parts.push(`+ ${k}`);
+  else parts.push(`- ${Math.abs(k)}`);
+  return parts.join(' ').replace(/^\+ /, '');
+}
+
+/**
+ * Solve ax+by=c, dx+ey=f by determinants (Paravartya / Cramer's rule)
+ * Returns { x, y } when unique solution exists
+ */
+export function solveSimultaneous(a, b, c, d, e, f) {
+  const det = a * e - b * d;
+  if (det === 0) return null;
+  return {
+    x: (c * e - b * f) / det,
+    y: (a * f - c * d) / det,
+  };
+}
+
+/**
+ * Factor / roots of x² - sx + p = 0 when integer roots r1, r2 with r1+r2=s, r1*r2=p
+ */
+export function quadraticRootsFromSumProduct(sum, product) {
+  for (let r1 = -Math.abs(product); r1 <= Math.abs(product); r1++) {
+    if (r1 === 0) continue;
+    if (product % r1 !== 0) continue;
+    const r2 = product / r1;
+    if (r1 + r2 === sum) {
+      return [Math.min(r1, r2), Math.max(r1, r2)];
+    }
+  }
+  return null;
+}
+
+/** Sunyam: if a+b+c=0 for ax²+bx+c, then x=1 is a root */
+export function sunyamHasRootOne(a, b, c) {
+  return a + b + c === 0;
+}
+
+/** Circumference with π=22/7: 2πr */
+export function circumference22by7(r) {
+  return (2 * 22 * r) / 7;
+}
+
+/** Area of circle πr² with π=22/7 */
+export function areaCircle22by7(r) {
+  return (22 * r * r) / 7;
+}
+
+/** Dividend = (number of shares × face value × rate%) / 100 */
+export function annualDividend(shares, faceValue, ratePercent) {
+  return (shares * faceValue * ratePercent) / 100;
+}
+
+/** Market value of shares */
+export function marketValue(shares, marketPrice) {
+  return shares * marketPrice;
+}
+
+/** Height from tan: opposite = adjacent × tan(θ); for 30° tan=1/√3, 45°=1, 60°=√3 */
+export function heightFromTan45(distance) {
+  return distance; // tan45=1
+}
+
+export function heightFromTan30(distance) {
+  return distance / Math.sqrt(3);
+}
+
+export function heightFromTan60(distance) {
+  return distance * Math.sqrt(3);
+}
+
+/** Normalize text answers for comparison */
+export function normalizeTextAnswer(s) {
+  return String(s)
+    .toLowerCase()
+    .replace(/\s+/g, '')
+    .replace(/\*\*/g, '^')
+    .replace(/−/g, '-')
+    .replace(/×/g, 'x');
+}
+
 /**
  * @param {object} question practice item from techniques data
  * @param {string|number|null} rawAnswer primary answer
- * @param {string|number|null} rawAnswer2 denominator for fractions
+ * @param {string|number|null} rawAnswer2 second part (fraction den, or y, or text unused)
  */
 export function checkPracticeAnswer(question, rawAnswer, rawAnswer2 = null) {
   if (question.isYesNo) {
@@ -85,30 +220,77 @@ export function checkPracticeAnswer(question, rawAnswer, rawAnswer2 = null) {
     return n === question.a.n && d === question.a.d;
   }
 
+  if (question.answerType === 'pair') {
+    return Number(rawAnswer) === question.a.x && Number(rawAnswer2) === question.a.y;
+  }
+
+  if (question.answerType === 'text') {
+    return normalizeTextAnswer(rawAnswer) === normalizeTextAnswer(question.a);
+  }
+
   if (question.answerType === 'decimal') {
     const val = parseFloat(rawAnswer);
-    return Math.abs(val - question.a) < 0.01;
+    const tol = question.tolerance ?? 0.01;
+    return Math.abs(val - question.a) < tol;
   }
 
   return Number(rawAnswer) === question.a;
 }
 
-/** Validate all practice answers in a technique against math helpers */
-export function validateTechniquePractice(technique, validators) {
-  const errors = [];
-  for (const [i, q] of technique.practice.entries()) {
-    const fn = validators[q.validate];
-    if (!fn) continue;
-    const expected = fn(q);
-    if (q.isYesNo) {
-      if (expected !== (q.a === 1)) errors.push(`${technique.id}[${i}] yes/no expected ${expected}, got a=${q.a}`);
-    } else if (q.answerType === 'fraction') {
-      if (expected.n !== q.a.n || expected.d !== q.a.d) {
-        errors.push(`${technique.id}[${i}] fraction expected ${expected.n}/${expected.d}, got ${q.a.n}/${q.a.d}`);
-      }
-    } else if (Math.abs(expected - q.a) > 0.01) {
-      errors.push(`${technique.id}[${i}] expected ${expected}, got ${q.a}`);
+/** Has Devanagari characters */
+export function hasHindi(text) {
+  return /[\u0900-\u097F]/.test(String(text ?? ''));
+}
+
+/**
+ * Shared math notation (formulas, equations) is acceptable as HI
+ * when there is no prose — kids see the same symbols in both languages.
+ */
+export function isMathOnly(text) {
+  const t = String(text ?? '').trim();
+  if (!t || hasHindi(t)) return false;
+  if (!/\d/.test(t) && !/[xyθπ√]/.test(t)) return false;
+  // Digits, algebra letters, trig abbreviations, operators, spaces
+  return /^[\d\s+\-−–×÷=*/^()[\]{}.,:;?%√πθαβ²³₀-₉a-zA-Z|\\→←↔…·✓✗]+$/.test(t);
+}
+
+export function isAcceptableBilingualHi(hi) {
+  return hasHindi(hi) || isMathOnly(hi);
+}
+
+/** Collect bilingual field issues for a technique */
+export function validateBilingualTechnique(technique) {
+  const issues = [];
+  const req = (label, en, hi) => {
+    if (!en || !String(en).trim()) issues.push(`${technique.id}: missing EN ${label}`);
+    if (!hi || !String(hi).trim()) issues.push(`${technique.id}: missing HI ${label}`);
+    else if (!isAcceptableBilingualHi(hi)) {
+      issues.push(`${technique.id}: HI ${label} needs Devanagari or math notation`);
     }
+  };
+
+  req('title', technique.en, technique.hi);
+  req('benefitChip', technique.benefitChip?.en, technique.benefitChip?.hi);
+  req('whenToUse', technique.whenToUse?.en, technique.whenToUse?.hi);
+  req('whenNotToUse', technique.whenNotToUse?.en, technique.whenNotToUse?.hi);
+  req('masteredText', technique.masteredText?.en, technique.masteredText?.hi);
+
+  technique.whyVedic?.forEach((w, i) => req(`whyVedic[${i}]`, w.en, w.hi));
+  technique.regular?.steps?.forEach((s, i) => req(`regular[${i}]`, s.en, s.hi));
+  technique.vedic?.steps?.forEach((s, i) => {
+    req(`vedic[${i}]`, s.en, s.hi);
+    if (s.proTip) req(`vedic[${i}].proTip`, s.proTip.en, s.proTip.hi);
+  });
+  technique.practice?.forEach((p, i) => {
+    if (!p.q) issues.push(`${technique.id}: practice[${i}] missing q`);
+    if (p.hint) req(`practice[${i}].hint`, p.hint.en, p.hint.hi);
+  });
+
+  if (technique.sutra) {
+    req('sutra', technique.sutra.en, technique.sutra.hi);
+    if (technique.sutra.meaning) req('sutra.meaning', technique.sutra.meaning.en, technique.sutra.meaning.hi);
   }
-  return errors;
+  if (technique.selinaTag) req('selinaTag', technique.selinaTag.en, technique.selinaTag.hi);
+
+  return issues;
 }

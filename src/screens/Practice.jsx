@@ -29,10 +29,12 @@ export default function Practice() {
   const current = questions[practiceState.index];
   const progress = (practiceState.index / questions.length) * 100;
   const isFraction = current.answerType === 'fraction';
+  const isPair = current.answerType === 'pair';
+  const isText = current.answerType === 'text';
 
   const canCheck = () => {
     if (current.isYesNo) return yesNo !== null;
-    if (isFraction) return answer !== '' && answerDen !== '';
+    if (isFraction || isPair) return answer !== '' && answerDen !== '';
     return answer !== '';
   };
 
@@ -43,6 +45,7 @@ export default function Practice() {
         : (lang === 'hi' ? 'नहीं' : 'No');
     }
     if (isFraction) return `${current.a.n}/${current.a.d}`;
+    if (isPair) return `x=${current.a.x}, y=${current.a.y}`;
     return current.a;
   };
 
@@ -50,7 +53,7 @@ export default function Practice() {
     const correct = checkPracticeAnswer(
       current,
       current.isYesNo ? yesNo : answer,
-      isFraction ? answerDen : null
+      isFraction || isPair ? answerDen : null
     );
 
     const newState = {
@@ -146,6 +149,16 @@ export default function Practice() {
               {lang === 'hi' ? 'अंश / हर लिखें' : 'Enter numerator / denominator'}
             </p>
           )}
+          {isPair && (
+            <p style={{ marginTop: 8, fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+              {lang === 'hi' ? 'x और y लिखें' : 'Enter x and y'}
+            </p>
+          )}
+          {isText && (
+            <p style={{ marginTop: 8, fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+              {lang === 'hi' ? 'जैसे: 6x^2 - x - 15' : 'e.g. 6x^2 - x - 15'}
+            </p>
+          )}
         </motion.div>
       </AnimatePresence>
 
@@ -216,6 +229,38 @@ export default function Practice() {
             disabled={!!feedback}
           />
         </div>
+      ) : isPair ? (
+        <div className="fraction-input">
+          <input
+            className="answer-input"
+            type="number"
+            value={answer}
+            onChange={(e) => setAnswer(e.target.value)}
+            placeholder="x"
+            disabled={!!feedback}
+            autoFocus
+          />
+          <span className="fraction-slash">,</span>
+          <input
+            className="answer-input"
+            type="number"
+            value={answerDen}
+            onChange={(e) => setAnswerDen(e.target.value)}
+            placeholder="y"
+            disabled={!!feedback}
+          />
+        </div>
+      ) : isText ? (
+        <input
+          className="answer-input"
+          type="text"
+          value={answer}
+          onChange={(e) => setAnswer(e.target.value)}
+          placeholder="6x^2 - x - 15"
+          disabled={!!feedback}
+          autoFocus
+          style={{ fontSize: '1.1rem' }}
+        />
       ) : (
         <input
           className="answer-input"

@@ -1,12 +1,19 @@
+import { PHASE34_TECHNIQUES } from './techniquesPhase34.js';
+
 export const CATEGORIES = [
   { id: 'multiply', icon: '✕', en: 'Multiply', hi: 'गुणा' },
   { id: 'divide', icon: '÷', en: 'Divide', hi: 'भाग' },
   { id: 'squares', icon: '²', en: 'Squares', hi: 'वर्ग' },
+  { id: 'cubes', icon: '³', en: 'Cubes', hi: 'घन' },
+  { id: 'roots', icon: '√', en: 'Roots', hi: 'मूल' },
   { id: 'mental', icon: '+', en: 'Mental Add', hi: 'मानसिक जोड़' },
   { id: 'percent', icon: '%', en: 'Percent', hi: 'प्रतिशत' },
   { id: 'fractions', icon: '½', en: 'Fractions', hi: 'भिन्न' },
   { id: 'numbers', icon: '🔢', en: 'HCF/LCM', hi: 'HCF/LCM' },
   { id: 'commercial', icon: '₹', en: 'Money Math', hi: 'पैसे' },
+  { id: 'algebra', icon: '𝑥', en: 'Algebra', hi: 'बीजगणित' },
+  { id: 'mensuration', icon: 'π', en: 'Mensuration', hi: 'क्षेत्रमिति' },
+  { id: 'trig', icon: '∠', en: 'Trig', hi: 'त्रिकोणमिति' },
   { id: 'verify', icon: '✓', en: 'Check', hi: 'जाँच' },
 ];
 
@@ -803,11 +810,12 @@ export const TECHNIQUES = [
     ],
     masteredText: { en: 'You can solve Profit & Loss % like a pro!', hi: 'अब आप लाभ-हानि % होशियारी से हल कर सकते हैं!' },
   },
+  ...PHASE34_TECHNIQUES,
 ];
 
 export const DAILY_CHALLENGE = {
-  pro: { en: 'Today: Phase 2 — HCF, fractions, SI', hi: 'आज: चरण 2 — HCF, भिन्न, SI' },
-  techniques: ['anurupyena-hcf', 'urdhva-fractions', 'simple-interest'],
+  pro: { en: 'Today: cubes, algebra & trig', hi: 'आज: घन, बीजगणित और त्रिकोणमिति' },
+  techniques: ['cube-near-10', 'urdhva-binomial', 'trig-identity'],
 };
 
 export function getTechnique(id) {
