@@ -504,10 +504,10 @@ export const TECHNIQUES = [
     ],
     regular: {
       steps: [
-        { en: 'List factors of 48 and 18', hi: '48 और 18 के गुणनखंड लिखें' },
-        { en: 'Find common factors', hi: 'साझे गुणनखंड खोजें' },
-        { en: 'Pick the greatest: 6', hi: 'सबसे बड़ा चुनें: 6' },
-        { en: 'Slow for large numbers', hi: 'बड़ी संख्याओं पर धीमा' },
+        { en: 'List factors of 48: 1,2,3,4,6,8,12,16,24,48', hi: '48 के गुणनखंड: 1,2,3,4,6,8,12,16,24,48' },
+        { en: 'List factors of 18: 1,2,3,6,9,18', hi: '18 के गुणनखंड: 1,2,3,6,9,18' },
+        { en: 'Common factors: 1, 2, 3, 6', hi: 'साझे गुणनखंड: 1, 2, 3, 6' },
+        { en: 'Greatest = HCF 6', hi: 'सबसे बड़ा = HCF 6' },
       ],
       timeEstimate: 40,
     },
@@ -559,10 +559,10 @@ export const TECHNIQUES = [
     ],
     regular: {
       steps: [
-        { en: 'Prime factor 12 and 18', hi: '12 और 18 के अभाज्य गुणनखंड' },
-        { en: 'Take highest powers of each prime', hi: 'प्रत्येक अभाज्य की उच्चतम घात' },
-        { en: 'Multiply → LCM = 36', hi: 'गुणा → LCM = 36' },
-        { en: 'Messy for big numbers', hi: 'बड़ी संख्याओं पर उलझन' },
+        { en: 'Prime factor 12 = 2² × 3', hi: '12 = 2² × 3 अभाज्य गुणनखंड' },
+        { en: 'Prime factor 18 = 2 × 3²', hi: '18 = 2 × 3² अभाज्य गुणनखंड' },
+        { en: 'Take highest powers: 2² × 3²', hi: 'उच्चतम घात: 2² × 3²' },
+        { en: 'LCM = 4 × 9 = 36', hi: 'LCM = 4 × 9 = 36' },
       ],
       timeEstimate: 35,
     },
@@ -614,9 +614,9 @@ export const TECHNIQUES = [
     regular: {
       steps: [
         { en: 'Find LCM of 7 and 4 = 28', hi: '7 और 4 का LCM = 28' },
-        { en: '5/7 = 20/28, 3/4 = 21/28', hi: '5/7 = 20/28, 3/4 = 21/28' },
-        { en: 'Add: 41/28', hi: 'जोड़: 41/28' },
-        { en: 'Many steps for kids', hi: 'बच्चों के लिए कई कदम' },
+        { en: '5/7 = 20/28', hi: '5/7 = 20/28' },
+        { en: '3/4 = 21/28', hi: '3/4 = 21/28' },
+        { en: 'Add: 20/28 + 21/28 = 41/28', hi: 'जोड़: 20/28 + 21/28 = 41/28' },
       ],
       timeEstimate: 35,
     },
@@ -668,9 +668,10 @@ export const TECHNIQUES = [
     ],
     regular: {
       steps: [
-        { en: 'Recompute 48 × 17 from scratch', hi: '48 × 17 दोबारा गणना करें' },
-        { en: 'Takes almost as long as first try', hi: 'लगभग पहली कोशिश जितना समय' },
-        { en: 'Easy to make same mistake again', hi: 'वही गलती फिर हो सकती है' },
+        { en: 'To check 48 × 17, redo long multiplication', hi: '48 × 17 जाँचने के लिए लंबी गुणा दोबारा करें' },
+        { en: '48 × 7 = 336', hi: '48 × 7 = 336' },
+        { en: '48 × 10 = 480', hi: '48 × 10 = 480' },
+        { en: 'Add: 336 + 480 = 816 ✓', hi: 'जोड़: 336 + 480 = 816 ✓' },
       ],
       timeEstimate: 25,
     },
@@ -679,7 +680,7 @@ export const TECHNIQUES = [
         { en: 'Digit root of 48: 4+8=12 → 1+2=3', hi: '48 का अंक योग: 4+8=12 → 1+2=3', proTip: { en: 'Keep adding digits until one digit left.', hi: 'एक अंक रह जाए तब तक जोड़ते रहें।' } },
         { en: 'Digit root of 17: 1+7=8', hi: '17 का अंक योग: 1+7=8', proTip: { en: 'Do the same for the other factor.', hi: 'दूसरे गुणनखंड के लिए भी।' } },
         { en: '3 × 8 = 24 → 2+4=6', hi: '3 × 8 = 24 → 2+4=6', proTip: { en: 'Product of roots → reduce again.', hi: 'मूलों का गुणनफल → फिर घटाएँ।' } },
-        { en: '816: 8+1+6=15 → 1+5=6 ✓ matches!', hi: '816: 8+1+6=15 → 1+5=6 ✓ मेल!', proTip: { en: 'If roots match, answer is likely correct.', hi: 'मूल मिलें तो जवाब सही होने की संभावना।' } },
+        { en: '816: 8+1+6=15 → 1+5=6 ✓ matches!', hi: '816: 8+1+6=15 → 1+5=6 ✓ मेल!', proTip: { en: 'If roots match, answer is likely correct — without redoing the full multiply.', hi: 'मूल मिलें तो जवाब सही होने की संभावना — पूरी गुणा दोबारा किए बिना।' } },
       ],
       pros: ['verify', 'speed', 'exam'],
       timeEstimate: 6,
@@ -723,9 +724,9 @@ export const TECHNIQUES = [
     regular: {
       steps: [
         { en: 'SI = (P × R × T) / 100', hi: 'SI = (P × R × T) / 100' },
-        { en: 'Multiply P×R×T first (big number)', hi: 'पहले P×R×T गुणा (बड़ी संख्या)' },
-        { en: 'Then divide by 100', hi: 'फिर 100 से भाग' },
-        { en: 'Easy to slip on zeros', hi: 'शून्य पर गलती आसान' },
+        { en: 'P=800, R=5, T=2 → 800 × 5 × 2', hi: 'P=800, R=5, T=2 → 800 × 5 × 2' },
+        { en: '800 × 5 × 2 = 8000', hi: '800 × 5 × 2 = 8000' },
+        { en: '8000 ÷ 100 = 80', hi: '8000 ÷ 100 = 80' },
       ],
       timeEstimate: 30,
     },
@@ -777,9 +778,10 @@ export const TECHNIQUES = [
     ],
     regular: {
       steps: [
-        { en: 'Profit = SP − CP', hi: 'लाभ = विक्रय − क्रय' },
+        { en: 'CP=200, SP=240 → Profit = 240 − 200 = 40', hi: 'क्रय=200, विक्रय=240 → लाभ = 40' },
         { en: 'Profit% = (Profit ÷ CP) × 100', hi: 'लाभ% = (लाभ ÷ क्रय) × 100' },
-        { en: 'Long division often needed', hi: 'अक्सर लंबा भाग' },
+        { en: '(40 ÷ 200) × 100', hi: '(40 ÷ 200) × 100' },
+        { en: '0.2 × 100 = 20%', hi: '0.2 × 100 = 20%' },
       ],
       timeEstimate: 28,
     },
