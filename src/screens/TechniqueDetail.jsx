@@ -24,9 +24,28 @@ export default function TechniqueDetail() {
         >
           {tech.icon}
         </motion.div>
-        <h2 style={{ textAlign: 'center', fontWeight: 800, fontSize: '1.3rem', marginBottom: 20 }}>
+        <h2 style={{ textAlign: 'center', fontWeight: 800, fontSize: '1.3rem', marginBottom: 12 }}>
           {tInline(tech.en, tech.hi)}
         </h2>
+        {tech.sutra && (
+          <div className="sutra-badge glass" style={{ marginBottom: 16, textAlign: 'center', padding: '12px 14px' }}>
+            <div style={{ fontSize: '0.7rem', fontWeight: 700, color: 'var(--text-muted)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+              {lang === 'hi' ? 'सूत्र' : 'Sutra'}
+            </div>
+            <div style={{ fontWeight: 700, color: 'var(--primary-dark)', marginTop: 4 }}>
+              {tInline(tech.sutra.en, tech.sutra.hi)}
+            </div>
+            <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: 2 }}>
+              {tInline(tech.sutra.meaning.en, tech.sutra.meaning.hi)}
+            </div>
+            {tech.selinaTag && (
+              <div style={{ fontSize: '0.75rem', marginTop: 8, color: 'var(--saffron)' }}>
+                📘 {tInline(tech.selinaTag.en, tech.selinaTag.hi)}
+                {tech.grades ? ` · ${tech.grades}` : ''}
+              </div>
+            )}
+          </div>
+        )}
       </FadeIn>
 
       <FadeIn delay={0.1}>

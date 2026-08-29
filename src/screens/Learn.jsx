@@ -60,6 +60,12 @@ export default function Learn() {
                 <div className="tech-card-body">
                   <div className="tech-card-title">{tInline(tech.en, tech.hi)}</div>
                   <BenefitChip en={tech.benefitChip.en} hi={tech.benefitChip.hi} />
+                  {tech.sutra && (
+                    <div style={{ fontSize: '0.7rem', color: 'var(--primary)', fontWeight: 600, marginTop: 4 }}>
+                      {lang === 'hi' ? tech.sutra.hi : tech.sutra.en}
+                      {tech.phase === 2 ? ' · Phase 2' : ''}
+                    </div>
+                  )}
                   <div className="tech-card-meta">
                     <div className="difficulty-dots">
                       {[1, 2, 3].map((d) => (

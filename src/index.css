@@ -1049,6 +1049,30 @@ body {
 .yesno-btn.selected-yes { background: rgba(16, 185, 129, 0.15); border-color: var(--success); color: #047857; }
 .yesno-btn.selected-no { background: rgba(239, 68, 68, 0.1); border-color: var(--error); color: #b91c1c; }
 
+/* Fraction answer inputs */
+.fraction-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.fraction-input .answer-input {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.fraction-slash {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1;
+}
+
+.sutra-badge {
+  border-left: 3px solid var(--saffron);
+}
+
 /* Logo splash */
 .logo-splash {
   text-align: center;
