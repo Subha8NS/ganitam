@@ -28,6 +28,7 @@ import {
   heightFromTan60,
   normalizeTextAnswer,
   validateBilingualTechnique,
+  hintRevealsAnswer,
   hasHindi,
   isAcceptableBilingualHi,
   isMathOnly,
@@ -164,6 +165,17 @@ describe('ALL techniques — bilingual EN + HI', () => {
           isAcceptableBilingualHi(p.hint.hi),
           `${tech.id}[${i}] hint.hi invalid: ${p.hint.hi}`
         ).toBe(true);
+      }
+    }
+  });
+
+  it('practice hints guide without giving away the answer', () => {
+    for (const tech of TECHNIQUES) {
+      for (const [i, p] of tech.practice.entries()) {
+        expect(
+          hintRevealsAnswer(p.hint, p),
+          `${tech.id}[${i}] hint leaks answer: ${p.hint.en}`
+        ).toBe(false);
       }
     }
   });

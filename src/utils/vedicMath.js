@@ -204,6 +204,54 @@ export function normalizeTextAnswer(s) {
     .replace(/×/g, 'x');
 }
 
+/** True when a practice hint likely gives away the final answer */
+export function hintRevealsAnswer(hint, question) {
+  if (!hint?.en || !question) return false;
+  const text = `${hint.en} ${hint.hi ?? ''}`;
+
+  if (question.isYesNo) {
+    const bareYes =
+      /^(yes|हाँ|हां)[\s!—–-]*$/i.test(hint.en.trim()) ||
+      /^(हाँ|हां)[\s!—–-]*$/.test((hint.hi ?? '').trim());
+    const bareNo =
+      /^(no|नहीं)[\s!—–-]*$/i.test(hint.en.trim()) ||
+      /^(नहीं)[\s!—–-]*$/.test((hint.hi ?? '').trim());
+    return bareYes || bareNo;
+  }
+
+  if (question.answerType === 'pair') {
+    return /\bx\s*=\s*\d+/i.test(text) && /\by\s*=\s*\d+/i.test(text);
+  }
+
+  if (question.answerType === 'text') {
+    const compact = (s) => normalizeTextAnswer(s);
+    return compact(text).includes(compact(String(question.a)));
+  }
+
+  if (question.answerType === 'fraction') {
+    const { n, d } = question.a;
+    return (
+      new RegExp(`${n}\\s*[,/]\\s*${d}|den\\s*=\\s*${d}`, 'i').test(text) &&
+      new RegExp(`\\b${n}\\b`).test(text)
+    );
+  }
+
+  const ans = String(question.a).replace('.', '\\.');
+  if (new RegExp(`(?:=|→|is\\s+|always\\s+|answer[:\\s]|h\\s*=)\\s*${ans}\\b`, 'i').test(text)) {
+    return true;
+  }
+  if (
+    new RegExp(`=${ans}\\s*$`).test(hint.en.trim()) ||
+    new RegExp(`=${ans}\\s*$`).test((hint.hi ?? '').trim())
+  ) {
+    return true;
+  }
+  if (new RegExp(`→\\s*${ans}\\s*$`).test(hint.en.trim()) || new RegExp(`→\\s*${ans}\\s*$`).test((hint.hi ?? '').trim())) {
+    return true;
+  }
+  return false;
+}
+
 /**
  * @param {object} question practice item from techniques data
  * @param {string|number|null} rawAnswer primary answer
